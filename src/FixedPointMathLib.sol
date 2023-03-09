@@ -9,7 +9,7 @@ contract FixedPointMathLib {
     function mulDiv(uint256 x, uint256 y, uint256 d) public pure returns (uint256 _res) {
         function (uint256, uint256, uint256) pure returns (uint256) _mulDiv;
         assembly {
-          _mulDiv := sub(codesize(), 40)
+            _mulDiv := sub(codesize(), 40)
         }
         _res = _mulDiv(x, y, d);
     }

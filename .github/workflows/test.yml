@@ -1,6 +1,6 @@
 name: test
 
-on: workflow_dispatch
+on: push
 
 env:
   FOUNDRY_PROFILE: ci
@@ -22,6 +22,11 @@ jobs:
         with:
           version: nightly
 
+      - name: Install Huff
+        uses: huff-language/huff-toolchain@v2
+        with:
+          version: nightly
+
       - name: Run Forge build
         run: |
           forge --version
@@ -32,3 +37,8 @@ jobs:
         run: |
           forge test -vvv
         id: test
+
+      - name: FMT Check
+        run: |
+          forge fmt --check
+        id: fmt

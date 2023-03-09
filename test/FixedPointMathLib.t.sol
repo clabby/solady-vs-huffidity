@@ -30,24 +30,10 @@ contract FixedPointMathLib_Test is Test {
             let finalStart := add(finalCode, 0x20)
 
             // Copy the solidity code
-            pop(staticcall(
-                gas(),
-                0x04,
-                add(bytecode, 0x20),
-                solLen,
-                finalStart,
-                solLen
-            ))
+            pop(staticcall(gas(), 0x04, add(bytecode, 0x20), solLen, finalStart, solLen))
 
             // Copy the huff code
-            pop(staticcall(
-                gas(),
-                0x04,
-                add(huff, 0x20),
-                huffLen,
-                add(finalStart, solLen),
-                huffLen
-            ))
+            pop(staticcall(gas(), 0x04, add(huff, 0x20), huffLen, add(finalStart, solLen), huffLen))
 
             // The length of `finalCode` is the sum of the lengths of the two runtime code snippets
             let finalLen := add(solLen, huffLen)
@@ -146,11 +132,7 @@ contract FixedPointMathLib_Test is Test {
 
 /// @dev Wrapper contract to put the two libs on equal footing in terms of the call overhead.
 contract FixedPointMathLib_Wrapper {
-    function mulDiv(
-        uint256 x,
-        uint256 y,
-        uint256 denominator
-    ) external pure returns (uint256 _res) {
+    function mulDiv(uint256 x, uint256 y, uint256 denominator) external pure returns (uint256 _res) {
         _res = FixedPointMathLib_Solady.mulDiv(x, y, denominator);
     }
 }
